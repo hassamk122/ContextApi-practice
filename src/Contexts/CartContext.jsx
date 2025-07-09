@@ -5,18 +5,17 @@ const CartContext = createContext();
 export function CartProvider({children}){
     const[cartItems,setCartItems] = useState([]);
 
-    function addToCart(item){
+    function addToCart(item,quantity =1){
         setCartItems((prev)=>{
             const  alreadyExists = prev.find((cartItem)=>cartItem.id == item.id);
         if(alreadyExists){
-
              return prev.map((cartItem)=>
             cartItem.id == item.id?
-             {...cartItem,quantity:cartItem.quantity+1}
+             {...cartItem,quantity:cartItem.quantity+quantity}
              :cartItem
             );
         }
-            return [...prev,item];
+            return [...prev,{...item,quantity}];
         });  
     }
     function removeFromCart(id){

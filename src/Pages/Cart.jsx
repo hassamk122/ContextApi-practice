@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useCart } from "../Contexts/CartContext.jsx";
 
 const styles = {
@@ -16,7 +17,7 @@ const styles = {
 export default function Cart() {
   const { cartItems ,removeFromCart,cleanCart} = useCart();
 
-  const totalPrice = cartItems.reduce((acc,item)=>acc+item.price*item.quantity,0);
+  const totalPrice =useMemo(()=>cartItems.reduce((acc,item)=>acc+item.price*item.quantity,0),[cartItems]);
   return (
     <div className={styles.mainDiv}>
       <h2 className={styles.header}>Your Shopping Cart</h2>
